@@ -37,6 +37,17 @@ module Enumerable
     result.nil? ? original_obj : result
   end
 
+  def my_inject(initial = nil)
+    original_obj = self.clone
+    memo = initial.nil? ? 0 : initial
+    if block_given?
+      (0...original_obj.length).each do | i |
+        memo = yield(memo, original_obj[i])
+      end
+    end
+    memo
+  end
+
   def my_map
     return Enumerator.new unless block_given?
     original_obj = self.clone
@@ -76,7 +87,7 @@ class Array
     return Enumerator.new unless block_given?
     result_array = Array.new
     original_array = self.clone
-    
+
     (0...original_array.length).each {| i | result_array.push(yield(original_array[i]))}
 
     result_array.all?{|x| x.nil?} ? original_array : result_array
