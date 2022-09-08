@@ -37,6 +37,14 @@ module Enumerable
     result.nil? ? original_obj : result
   end
 
+  def my_map
+    return Enumerator.new unless block_given?
+    original_obj = self.clone
+    result_arr = []
+    (0...original_obj.length).each { |i| result_arr.push(yield(original_obj[i]))}
+    result_arr
+  end
+
   def my_none?
     original_obj = self.clone
     control = 0
