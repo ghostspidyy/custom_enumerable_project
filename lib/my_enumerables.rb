@@ -29,6 +29,14 @@ module Enumerable
     result.nil? ? original_obj : result
   end
 
+  def my_none?
+    original_obj = self.clone
+    control = 0
+
+    (0...original_obj.length).each {|i| control += 1 if yield(original_obj[i]) } if block_given?
+    control == 0
+  end
+
   def my_select
     original_obj = self.clone
     result = original_obj.class.new
