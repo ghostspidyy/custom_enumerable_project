@@ -14,6 +14,18 @@ module Enumerable
     end
     result.nil? ? original_obj : result
   end
+
+  def my_select
+    original_obj = self.clone
+    result = original_obj.class.new
+
+    if block_given?
+      (0...original_obj.length).each do |i|
+        result.push(original_obj[i]) if yield(original_obj[i])
+      end
+    end
+    result.nil? ? original_obj : result
+  end
 end
 
 # You will first have to define my_each
