@@ -5,15 +5,10 @@ module Enumerable
   # Your code goes here
   def my_all?
     original_obj = self.clone
-    result = 0
+    control = 0
 
-    if block_given?
-      (0...original_obj.length).each do |i|
-        result += 1 if yield(original_obj[i])
-      end
-    end
-
-    result == original_obj.length
+    (0...original_obj.length).each {|i| control += 1 if yield(original_obj[i])} if block_given?
+    control == original_obj.length
   end
 
   def my_any?
