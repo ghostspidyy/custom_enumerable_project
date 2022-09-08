@@ -3,6 +3,18 @@
 # just a top level documentation because rubocop annoys me
 module Enumerable
   # Your code goes here
+  def my_all?
+    original_obj = self.clone
+    result = 0
+
+    if block_given?
+      (0...original_obj.length).each do |i|
+        result += 1 if yield(original_obj[i])
+      end
+    end
+
+    result == original_obj.length
+  end
   def my_each_with_index
     original_obj = self.clone
     result = original_obj.class.new
