@@ -1,5 +1,19 @@
+# frozen_string_literal: true
+
+# just a top level documentation because rubocop annoys me
 module Enumerable
   # Your code goes here
+  def my_each_with_index
+    original_obj = self.clone
+    result = original_obj.class.new
+
+    if block_given?
+      (0...original_obj.length).each do |i|
+        result = yield(original_obj[i], i)
+      end
+    end
+    result.nil? ? original_obj : result
+  end
 end
 
 # You will first have to define my_each
