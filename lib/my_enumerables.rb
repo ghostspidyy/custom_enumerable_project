@@ -65,14 +65,11 @@ module Enumerable
   end
 
   def my_select
+    return Enumerator.new unless block_given?
     original_obj = self.clone
     result = original_obj.class.new
 
-    if block_given?
-      (0...original_obj.length).each do |i|
-        result.push(original_obj[i]) if yield(original_obj[i])
-      end
-    end
+    (0...original_obj.length).each {|i| result.push(original_obj[i]) if yield(original_obj[i])}
     result.nil? ? original_obj : result
   end
 end
