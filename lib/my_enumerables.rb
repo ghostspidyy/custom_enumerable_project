@@ -15,6 +15,19 @@ module Enumerable
 
     result == original_obj.length
   end
+
+  def my_any?
+    original_obj = self.clone
+    result = 0
+
+    if block_given?
+      (0...original_obj.length).each do |i|
+        result += 1 if yield(original_obj[i])
+      end
+    end
+
+    result > 0
+  end
   def my_each_with_index
     original_obj = self.clone
     result = original_obj.class.new
